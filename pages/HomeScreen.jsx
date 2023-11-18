@@ -9,13 +9,14 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { alphabetsImage,rhymesImage,commandsImage,otherImage } from "../assets";
+import { alphabetsImage,rhymesImage,commandsImage,otherImage,numbers } from "../assets";
 
 const data = [
   { id: "1", title: "Alphabets", bg: alphabetsImage },
   { id: "2", title: "Rhymes", bg: rhymesImage },
   { id: "3", title: "Commands", bg:commandsImage },
-  { id: "4", title: "...", bg: otherImage},
+  { id: "4", title: "Numbers", bg:numbers },
+  { id: "5", title: "...", bg: otherImage},
 ];
 
 const datalist = (arr, chunkSize) => {
