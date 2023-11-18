@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Modal, TouchableOpacity, Text, Button } from 'react-native';
+import { Modal, View, TouchableOpacity, Text, ImageBackground, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,6 +8,8 @@ import SplashScreen from './pages/SplashScreen';
 import HomeScreen from './pages/HomeScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ListPage from './pages/ListPage';
+import {BlurView} from '@react-native-community/blur';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -46,6 +47,14 @@ export default function App() {
         })}
       >
         <Stack.Screen
+          name="Splashscreen"
+          component={SplashScreen}
+          options={{
+            title: '',
+            headerShown:false
+          }}
+        />
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{
@@ -61,19 +70,27 @@ export default function App() {
         />
       </Stack.Navigator>
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-            <Text>Modal Content</Text>
-            <Button title="Go to Another Page" onPress={navigateToAnotherPage} />
-            <Button title="Close Modal" onPress={() => setModalVisible(false)} />
-          </View>
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => setModalVisible(false)}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.innerContainer}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#A42929' }]}
+            onPress={navigateToAnotherPage}
+          >
+            <Text style={styles.buttonText}>Connect Device</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: '#A42929' }]}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text style={styles.buttonText}>Remove Device</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </View>
+    </Modal>
     </NavigationContainer>
   );
 }
@@ -85,4 +102,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background color
+  },
+  innerContainer: {
+    width: 200, // Adjust the width as needed
+    height: 200, // Adjust the height as needed
+    backgroundColor: '#F2F0DD',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    width: 150, // Adjust the width as needed
+    height:50,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight:'bold'
+  },});
